@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "3998481c-96aa-4823-ad9a-d9d31ecc44e2",
+		"name": "GitTest",
+		"description": "Git Test Postman Collection\n\nSet {{test_env}} to true for staging and false for live.\nThe {{base_url}} will be generated base on {{test_env}}. can change in Pre-request Scripts too.\nLogin to generate {{token}} and {{uid}}. (Facebook/Default)\nIf there is Token issue due to switching between live and staging, Logout the user.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/posts/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post with Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/posts/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d761513d-40c8-41f3-abbf-068a0bcf0ee1",
+						"exec": [
+							"let sessiontoken = JSON.parse(responseBody);",
+							"if (sessiontoken.token) {",
+							"    pm.collectionVariables.set(\"token\", sessiontoken.token);",
+							"}",
+							"if (sessiontoken.user) {",
+							"    pm.collectionVariables.set(\"uid\", sessiontoken.user.uid);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/user/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8fc0418f-85ea-49ba-a097-d4e894a433dd",
+				"type": "text/javascript",
+				"exec": [
+					"let test_env = pm.collectionVariables.get(\"test_env\");",
+					"",
+					"if (test_env === \"true\"){",
+					"    pm.collectionVariables.set(\"base_url\", \"http://localhost:3000\");",
+					"}",
+					"if (test_env === \"false\"){",
+					"    pm.collectionVariables.set(\"base_url\", \"https://jsonplaceholder.typicode.com\");",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "335dcfc0-eb5c-4cd5-9371-c0dd7e8ed4cf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1525d06b-9c9d-4b79-abba-1198bf514c75",
+			"key": "test_env",
+			"value": "false"
+		},
+		{
+			"id": "84c87655-f26f-4e9f-9ebe-198551d7e726",
+			"key": "base_url",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
