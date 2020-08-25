@@ -77,6 +77,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/posts/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -110,12 +128,12 @@
 	],
 	"variable": [
 		{
-			"id": "1525d06b-9c9d-4b79-abba-1198bf514c75",
+			"id": "b2f860a1-37a0-4339-8abc-b814d7f03380",
 			"key": "test_env",
 			"value": "false"
 		},
 		{
-			"id": "84c87655-f26f-4e9f-9ebe-198551d7e726",
+			"id": "4c858c09-9447-435c-a22e-fc64d18e8d43",
 			"key": "base_url",
 			"value": ""
 		}
